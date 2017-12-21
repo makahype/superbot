@@ -1,52 +1,12 @@
 # superbot
-A frontend framework to catalyze maintenance
+A frontend framework to catalyze maintenance. It does this by:
+* standardizing process
+* simplifying implementation with a small set of tools
 
 
 
 # file organization
 
-
-
-
-# process organization
-
-
-
-
-
-Frontend Framework (HBSM)
-==============================
-
-
-Overview:
-=============
-HBSM is a frontend framework to help organize and implement
-you frontend features. With this library you can define ajax
-communication, dom maniuplation and event binding with ease. At 
-the core of this framework is a strategy to also ensure that a 
-valid state is always maintained in your frontend environment. The
-framework mitigates race conditions and leads development in a 
-way that promotes deterministic function call paths. When using this 
-framework the reading of the code should give you a simple view of how
-functions cascade. Not only will you be able to make sense of your 
-code easier but you will also have an easier computing all the possible states
-your data can be in during run time. From this understanding you can control
-how your functions/events are sequenced to ensure that your state is always 
-valid and is what is expected by the sequence of user interactions. 
-
-
-
-Implementation Strategy:
-========================
-
-The HBSM framework is a set of functions to help a programmer implement their
-frontend application in a specific manner. This implementation scheme is not necessary
-for usage of these functions but it is considered helpful to use this scheme. Many
-of the functions in the library were created to be used in a particular sequence that
-lends itself to being implemented in functions organized by this schema.
-
-HBSM functions are supplied to help implement the tasks that should fall into 1 of 
-4 areas.
 
 1) Handlers: These functions are what are called when an event happens. A click 
 event, or a change event or any of the dom events you wish to observe should all
@@ -78,6 +38,11 @@ the next event to check after it fires.
 
 
 
+
+
+# process organization
+
+
 By organizing your code into these 4 groups you get some extra 
 features from your code:
 
@@ -100,6 +65,12 @@ event firing and handler management to data or html sending and state management
 set makes it easier to communicate where bugs occur or how  what new sender and manager
  functions you might need in order to  when implementing a new handler and frontend business
 logic.
+
+
+
+
+
+
 
 
 Diagram Explanation:
@@ -139,10 +110,6 @@ all events fire at a valid moment or state of the application.
 
 
 
-
-**NOTE**
-There are more details/examples on how to implement the various function areas
-in the "schema_implementation_details" file.
 
 
 
