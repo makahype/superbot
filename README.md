@@ -42,8 +42,7 @@ the next event to check after it fires.
 
 # process organization
 
-
-By organizing your code into these 4 groups you get some extra 
+By using this library to organize your code in synchronous paths you get added
 features from your code:
 
 a) By using the sender functions and the defered function you can ensure the call sequence
@@ -65,9 +64,6 @@ event firing and handler management to data or html sending and state management
 set makes it easier to communicate where bugs occur or how  what new sender and manager
  functions you might need in order to  when implementing a new handler and frontend business
 logic.
-
-
-
 
 
 
@@ -112,9 +108,6 @@ all events fire at a valid moment or state of the application.
 
 
 
-
-
-
 API:
 ========================
 HBSM is make up of 4 global objects. Each object raises a series of methods that
@@ -145,7 +138,10 @@ particular event is fired on a particular element
 - _s.ajax(method, url, data) : send an xmlhttp request to the url appending 
 the supplied data and using the given method (returns utility deferd object)
 
-- _s.compileTemplate(ele,save) : parse a template to use for later
+- _s.compileTemplate(ele,save) : parse a template to use for later, ele can be an element object
+or a string id.  The template (the markup inside the element) hold sections to be
+replace with data values delimited by the values "%t" on either end 
+ex: <li>%titem_desc%t</li>
 
 - _s.renderTemplate(name, data,ele) : use a already parsed template of the given
 name or render data in side a given element. The data is an array of objects in the 
@@ -156,7 +152,8 @@ suppling an array of data where each item is a set of data for a single renderin
 of the template
 
 - _s.parseTemplate(name,data) : take the the compiled template name and data and return
-the markup string result for applying the data to the template
+the markup string result for applying the data to the template. The data is an array of objects in the 
+format {name: string, value: string/number}
 
 - _s.appendTemplate(name,data,ele) : render a template markup string for the given
 data and append it to the end of the given element

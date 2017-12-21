@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>sb test</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            h1{
+                font-size: 50px;
+            }
+            
+            div.test-area{
+                font-size: 30px;
+                padding: 10px;
+            }            
+            input{
+                margin: 10px;
+            }
+            select{
+                margin: 10px;
+            }
+            button{
+                margin: 10px;
+            }
+        </style>
+        <script src="sb.js"></script>     
+        <script src="test.js"></script>             
+    </head>
+    <body>
+
+        <h1> Test Superbot js library </h1>
+        
+        
+        <h3>event binding</h3>
+        <div class="test-area">
+            
+            <button id="click_test">click me</button>
+            
+            <select id="change_me">
+                <option value="op_1">option 1</option>
+                <option value="op_2">option 2</option>                
+            </select>
+            
+        </div>
+        <br/><br/>
+        <br/><br/>
+        
+        
+        <h3>template</h3>
+        <div class="test-area">
+
+            
+            input data: <input id="data_ele" value=""/>
+            <button id="tmp_test_btn">put data in template</button>
+            
+            <div id="temp_res">
+            </div>
+            
+            <div style="display: none;" id="template_test">
+                you have placed %ttest%t in the input box
+            </div>
+            
+            
+        </div>
+        <br/><br/>
+        <br/><br/>
+        
+        
+        <h3>xhttp request</h3>
+        <div class="test-area">
+            
+            url: <input id="url_test" value=""/>
+            
+            <button id="url_test_btn">click to display page data</button>
+            
+            <div id="url_test_res">
+                output will display here
+            </div>
+            
+        </div>
+        <br/><br/>
+        <br/><br/>        
+        
+        
+        
+        
+    </body>
+</html>
