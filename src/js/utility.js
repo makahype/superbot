@@ -58,7 +58,7 @@ _u.defer = function(start_func){
                 done = true;
             }
         }else{
-            new_result.call();
+            //new_result.call();
             setTimeout(handleDeferdResult, _u.DPT,new_result);                
         }
     };
