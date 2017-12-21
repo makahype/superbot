@@ -72,7 +72,7 @@ logic.
 Diagram Explanation:
 =======================
 
-In the root of this repository here is an image,  schema.png. It give a visual representation
+In the root of this repository here is an image,  sborganization.png. It give a visual representation
 of what the implementation scheme should be when using this farmework. Here is a little 
 further explination of the diagram:.
 
