@@ -177,5 +177,5 @@ a) ability to control flow and creation of state
 b) organize code by what area its responsible for making it 
 easier to maintain
 
-c) you code becomes deterministic, fully testable
+c) your code becomes deterministic, fully testable
 
