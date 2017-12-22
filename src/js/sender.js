@@ -170,138 +170,138 @@ _s.batchRender = function(render_funcs){
 
 
 /*form library*/
-var frmUT = {};
-frmUT.ERRCLS = 'frmt-error';
-
-//validation options constants
-frmUT.INT = 'int';
-frmUT.STR = 'str';
-frmUT.PHN = 'phone';
-frmUT.EMAIL = 'email';
-frmUT.NUM = 'number';
-
-
-//validator functions and register object
-frmUT.VALFNC = {};
-frmUT.VALFNC[frmUT.INT] = function(value){
-    var val = parseInt(value) + '';
-    value = value + '';
-    return (value.length === val.length);
-}
-
-frmUT.VALFNC[frmUT.NUM] = function(value){
-    var val = parseFloat(value) + '';
-    value = value + '';
-    return (value.length === val.length);
-}
-
-frmUT.VALFNC[frmUT.PHN] = function(value){
-    val = value+'';  
-    return (val.length >= 10 && val.matches("[0-9]+"));
-}
-
-frmUT.VALFNC[frmUT.EMAIL] = function(value){
-    return (value.indexOf('@') !== -1) && (value.indexOf('.') !== -1);
-}
-
-frmUT.VALFNC[frmUT.STR] = function(value){
-    return true;    
-}
-
-//validates form and returns 
-//an array of items
-//comes in the format
-//res_lbl, inptid, type
-frmUT.validateFrm = function(items){
-    var res = true;
-    var ele = false;
-    for(var i = 0; i < items.length; i++){
-        ele = _u.eleId(items[i].inptid);
-        ele = ele.value;
-        if(frmUT.validateInpt(ele, items[i].type)){
-            frmUT.setErr(items[i]);
-        }else{
-            //if any error occurs return as false;
-            res = false;
-        }
-    }
-    return res;
-};
-
-
-frmUT.registerValidator = function(name, func){
-    frmUT.VALFNC[name] = func;
-}
-
-frmUT.validateInpt = function(value, type){      
-    return frmUT.VALFNC[type](value);
-};
-
-frmUT.clearFrm = function(items){
-
-    var ele = false;
-    for(var i = 0; i < items.length; i++){
-        
-        //if an options form then perform select changing
-        ele = _u.eleId(items[i].inptid);
-        if(ele.options){
-            frmUT.changeSelect(ele,  '');
-        }else{
-            ele.value = '';   
-        }
-    }    
-};
-
-
-frmUT.setErr = function(item){
-    var ele = _u.eleId(item.inptid);
-    _u.removeClass(ele,frmUT.ERRCLS);
-    _u.addClass(ele,frmUT.ERRCLS);
-    
-};
-
-frmUT.serializeFrm = function(items){
-    var res = {};
-    var ele = false;
-    for(var i = 0; i < items.length; i++){
-        ele = _u.eleId(items[i].inptid);
-        ele = ele.value;
-        
-        //set result data object
-        res[items[i].res_lbl] = ele;
-    }
-    return res;    
-};
-
-
-//only works for text boxes  , should
-//work for checkboxes,and select boxes
-frmUT.populateFrm = function(data, items){
-
-    var ele = false;
-    for(var i = 0; i < items.length; i++){
-        
-        //if an options form then perform select changing
-        ele = _u.eleId(items[i].inptid);
-        if(ele.options){
-            frmUT.changeSelect(ele,  data[items[i].res_lbl]);
-        }else{
-            ele.value = data[items[i].res_lbl];            
-        }
-    }
-
-};
-
-
-
-frmUT.changeSelect = function(sel, val){
-    var opts = sel.options;
-    var opt = {};
-    for(var i = 0; i < opts.length; i++) {
-        opt = opts[i];
-        if(opt.value == val) {
-            sel.selectedIndex = i;
-            break;
-        }
-    }
-};
+//var frmUT = {};
+//frmUT.ERRCLS = 'frmt-error';
+//
+////validation options constants
+//frmUT.INT = 'int';
+//frmUT.STR = 'str';
+//frmUT.PHN = 'phone';
+//frmUT.EMAIL = 'email';
+//frmUT.NUM = 'number';
+//
+//
+////validator functions and register object
+//frmUT.VALFNC = {};
+//frmUT.VALFNC[frmUT.INT] = function(value){
+//    var val = parseInt(value) + '';
+//    value = value + '';
+//    return (value.length === val.length);
+//}
+//
+//frmUT.VALFNC[frmUT.NUM] = function(value){
+//    var val = parseFloat(value) + '';
+//    value = value + '';
+//    return (value.length === val.length);
+//}
+//
+//frmUT.VALFNC[frmUT.PHN] = function(value){
+//    val = value+'';  
+//    return (val.length >= 10 && val.matches("[0-9]+"));
+//}
+//
+//frmUT.VALFNC[frmUT.EMAIL] = function(value){
+//    return (value.indexOf('@') !== -1) && (value.indexOf('.') !== -1);
+//}
+//
+//frmUT.VALFNC[frmUT.STR] = function(value){
+//    return true;    
+//}
+//
+////validates form and returns 
+////an array of items
+////comes in the format
+////res_lbl, inptid, type
+//frmUT.validateFrm = function(items){
+//    var res = true;
+//    var ele = false;
+//    for(var i = 0; i < items.length; i++){
+//        ele = _u.eleId(items[i].inptid);
+//        ele = ele.value;
+//        if(frmUT.validateInpt(ele, items[i].type)){
+//            frmUT.setErr(items[i]);
+//        }else{
+//            //if any error occurs return as false;
+//            res = false;
+//        }
+//    }
+//    return res;
+//};
+//
+//
+//frmUT.registerValidator = function(name, func){
+//    frmUT.VALFNC[name] = func;
+//}
+//
+//frmUT.validateInpt = function(value, type){      
+//    return frmUT.VALFNC[type](value);
+//};
+//
+//frmUT.clearFrm = function(items){
+//
+//    var ele = false;
+//    for(var i = 0; i < items.length; i++){
+//        
+//        //if an options form then perform select changing
+//        ele = _u.eleId(items[i].inptid);
+//        if(ele.options){
+//            frmUT.changeSelect(ele,  '');
+//        }else{
+//            ele.value = '';   
+//        }
+//    }    
+//};
+//
+//
+//frmUT.setErr = function(item){
+//    var ele = _u.eleId(item.inptid);
+//    _u.removeClass(ele,frmUT.ERRCLS);
+//    _u.addClass(ele,frmUT.ERRCLS);
+//    
+//};
+//
+//frmUT.serializeFrm = function(items){
+//    var res = {};
+//    var ele = false;
+//    for(var i = 0; i < items.length; i++){
+//        ele = _u.eleId(items[i].inptid);
+//        ele = ele.value;
+//        
+//        //set result data object
+//        res[items[i].res_lbl] = ele;
+//    }
+//    return res;    
+//};
+//
+//
+////only works for text boxes  , should
+////work for checkboxes,and select boxes
+//frmUT.populateFrm = function(data, items){
+//
+//    var ele = false;
+//    for(var i = 0; i < items.length; i++){
+//        
+//        //if an options form then perform select changing
+//        ele = _u.eleId(items[i].inptid);
+//        if(ele.options){
+//            frmUT.changeSelect(ele,  data[items[i].res_lbl]);
+//        }else{
+//            ele.value = data[items[i].res_lbl];            
+//        }
+//    }
+//
+//};
+//
+//
+//
+//frmUT.changeSelect = function(sel, val){
+//    var opts = sel.options;
+//    var opt = {};
+//    for(var i = 0; i < opts.length; i++) {
+//        opt = opts[i];
+//        if(opt.value == val) {
+//            sel.selectedIndex = i;
+//            break;
+//        }
+//    }
+//};

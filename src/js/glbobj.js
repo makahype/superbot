@@ -1,9 +1,9 @@
-var sb_cpy = function(u,h,m,s){
+var sb_cpy = function(_u,_h,_m,_s){
     var bundle = {};
-    bundle.u = u;
-    bundle.h = h;
-    bundle.m = m;
-    bundle.s = s;    
+    bundle.u = _u;
+    bundle.h = _h;
+    bundle.m = _m;
+    bundle.s = _s;    
     return bundle;
 }
 
