@@ -1,11 +1,11 @@
-# superbot
+# Superbot
 A frontend framework to catalyze maintenance. It does this by:
 * standardizing process
 * simplifying implementation with a small set of tools
 
 
 
-# file organization
+# File organization
 * handler.js : event listening wrappers
 * sender.js : templating, http request wrappers
 * utility.js : defer function, general dom wrappers
@@ -14,7 +14,7 @@ A frontend framework to catalyze maintenance. It does this by:
 
 
 
-# process organization
+# Process organization
 
 By using this library to organize your code in synchronous paths you get added
 features from your code:
@@ -31,7 +31,7 @@ c) you code becomes deterministic, fully testable
 
 
 
-#Diagram Explanation
+# Diagram Explanation
 
 sborganization.png
 
@@ -70,7 +70,7 @@ all events fire at a valid moment or state of the application.
 
 
 
-#API
+# API
 
 Superbot has 4 objects tied to the "sb" global object.
 
