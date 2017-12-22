@@ -469,141 +469,141 @@ _s.batchRender = function(render_funcs){
 
 
 /*form library*/
-var frmUT = {};
-frmUT.ERRCLS = 'frmt-error';
-
-//validation options constants
-frmUT.INT = 'int';
-frmUT.STR = 'str';
-frmUT.PHN = 'phone';
-frmUT.EMAIL = 'email';
-frmUT.NUM = 'number';
-
-
-//validator functions and register object
-frmUT.VALFNC = {};
-frmUT.VALFNC[frmUT.INT] = function(value){
-    var val = parseInt(value) + '';
-    value = value + '';
-    return (value.length === val.length);
-}
-
-frmUT.VALFNC[frmUT.NUM] = function(value){
-    var val = parseFloat(value) + '';
-    value = value + '';
-    return (value.length === val.length);
-}
-
-frmUT.VALFNC[frmUT.PHN] = function(value){
-    val = value+'';  
-    return (val.length >= 10 && val.matches("[0-9]+"));
-}
-
-frmUT.VALFNC[frmUT.EMAIL] = function(value){
-    return (value.indexOf('@') !== -1) && (value.indexOf('.') !== -1);
-}
-
-frmUT.VALFNC[frmUT.STR] = function(value){
-    return true;    
-}
-
-//validates form and returns 
-//an array of items
-//comes in the format
-//res_lbl, inptid, type
-frmUT.validateFrm = function(items){
-    var res = true;
-    var ele = false;
-    for(var i = 0; i < items.length; i++){
-        ele = _u.eleId(items[i].inptid);
-        ele = ele.value;
-        if(frmUT.validateInpt(ele, items[i].type)){
-            frmUT.setErr(items[i]);
-        }else{
-            //if any error occurs return as false;
-            res = false;
-        }
-    }
-    return res;
-};
-
-
-frmUT.registerValidator = function(name, func){
-    frmUT.VALFNC[name] = func;
-}
-
-frmUT.validateInpt = function(value, type){      
-    return frmUT.VALFNC[type](value);
-};
-
-frmUT.clearFrm = function(items){
-
-    var ele = false;
-    for(var i = 0; i < items.length; i++){
-        
-        //if an options form then perform select changing
-        ele = _u.eleId(items[i].inptid);
-        if(ele.options){
-            frmUT.changeSelect(ele,  '');
-        }else{
-            ele.value = '';   
-        }
-    }    
-};
-
-
-frmUT.setErr = function(item){
-    var ele = _u.eleId(item.inptid);
-    _u.removeClass(ele,frmUT.ERRCLS);
-    _u.addClass(ele,frmUT.ERRCLS);
-    
-};
-
-frmUT.serializeFrm = function(items){
-    var res = {};
-    var ele = false;
-    for(var i = 0; i < items.length; i++){
-        ele = _u.eleId(items[i].inptid);
-        ele = ele.value;
-        
-        //set result data object
-        res[items[i].res_lbl] = ele;
-    }
-    return res;    
-};
-
-
-//only works for text boxes  , should
-//work for checkboxes,and select boxes
-frmUT.populateFrm = function(data, items){
-
-    var ele = false;
-    for(var i = 0; i < items.length; i++){
-        
-        //if an options form then perform select changing
-        ele = _u.eleId(items[i].inptid);
-        if(ele.options){
-            frmUT.changeSelect(ele,  data[items[i].res_lbl]);
-        }else{
-            ele.value = data[items[i].res_lbl];            
-        }
-    }
-
-};
-
-
-
-frmUT.changeSelect = function(sel, val){
-    var opts = sel.options;
-    var opt = {};
-    for(var i = 0; i < opts.length; i++) {
-        opt = opts[i];
-        if(opt.value == val) {
-            sel.selectedIndex = i;
-            break;
-        }
-    }
-};
+//var frmUT = {};
+//frmUT.ERRCLS = 'frmt-error';
+//
+////validation options constants
+//frmUT.INT = 'int';
+//frmUT.STR = 'str';
+//frmUT.PHN = 'phone';
+//frmUT.EMAIL = 'email';
+//frmUT.NUM = 'number';
+//
+//
+////validator functions and register object
+//frmUT.VALFNC = {};
+//frmUT.VALFNC[frmUT.INT] = function(value){
+//    var val = parseInt(value) + '';
+//    value = value + '';
+//    return (value.length === val.length);
+//}
+//
+//frmUT.VALFNC[frmUT.NUM] = function(value){
+//    var val = parseFloat(value) + '';
+//    value = value + '';
+//    return (value.length === val.length);
+//}
+//
+//frmUT.VALFNC[frmUT.PHN] = function(value){
+//    val = value+'';  
+//    return (val.length >= 10 && val.matches("[0-9]+"));
+//}
+//
+//frmUT.VALFNC[frmUT.EMAIL] = function(value){
+//    return (value.indexOf('@') !== -1) && (value.indexOf('.') !== -1);
+//}
+//
+//frmUT.VALFNC[frmUT.STR] = function(value){
+//    return true;    
+//}
+//
+////validates form and returns 
+////an array of items
+////comes in the format
+////res_lbl, inptid, type
+//frmUT.validateFrm = function(items){
+//    var res = true;
+//    var ele = false;
+//    for(var i = 0; i < items.length; i++){
+//        ele = _u.eleId(items[i].inptid);
+//        ele = ele.value;
+//        if(frmUT.validateInpt(ele, items[i].type)){
+//            frmUT.setErr(items[i]);
+//        }else{
+//            //if any error occurs return as false;
+//            res = false;
+//        }
+//    }
+//    return res;
+//};
+//
+//
+//frmUT.registerValidator = function(name, func){
+//    frmUT.VALFNC[name] = func;
+//}
+//
+//frmUT.validateInpt = function(value, type){      
+//    return frmUT.VALFNC[type](value);
+//};
+//
+//frmUT.clearFrm = function(items){
+//
+//    var ele = false;
+//    for(var i = 0; i < items.length; i++){
+//        
+//        //if an options form then perform select changing
+//        ele = _u.eleId(items[i].inptid);
+//        if(ele.options){
+//            frmUT.changeSelect(ele,  '');
+//        }else{
+//            ele.value = '';   
+//        }
+//    }    
+//};
+//
+//
+//frmUT.setErr = function(item){
+//    var ele = _u.eleId(item.inptid);
+//    _u.removeClass(ele,frmUT.ERRCLS);
+//    _u.addClass(ele,frmUT.ERRCLS);
+//    
+//};
+//
+//frmUT.serializeFrm = function(items){
+//    var res = {};
+//    var ele = false;
+//    for(var i = 0; i < items.length; i++){
+//        ele = _u.eleId(items[i].inptid);
+//        ele = ele.value;
+//        
+//        //set result data object
+//        res[items[i].res_lbl] = ele;
+//    }
+//    return res;    
+//};
+//
+//
+////only works for text boxes  , should
+////work for checkboxes,and select boxes
+//frmUT.populateFrm = function(data, items){
+//
+//    var ele = false;
+//    for(var i = 0; i < items.length; i++){
+//        
+//        //if an options form then perform select changing
+//        ele = _u.eleId(items[i].inptid);
+//        if(ele.options){
+//            frmUT.changeSelect(ele,  data[items[i].res_lbl]);
+//        }else{
+//            ele.value = data[items[i].res_lbl];            
+//        }
+//    }
+//
+//};
+//
+//
+//
+//frmUT.changeSelect = function(sel, val){
+//    var opts = sel.options;
+//    var opt = {};
+//    for(var i = 0; i < opts.length; i++) {
+//        opt = opts[i];
+//        if(opt.value == val) {
+//            sel.selectedIndex = i;
+//            break;
+//        }
+//    }
+//};
 //manager namespace
 _m = {};
 
@@ -612,49 +612,26 @@ _m.mstate = {};
 
 
 //state set
-_m.setState = function(name, data){
-    _m.mstate[name] = data;
+_m.setManager = function(state_name, manager){
+    _m.mstate[state_name] = manager;
 };
 
-//state get
-_m.getState = function(name){
-    return _m.mstate[name];
+//state manage
+_m.manageState = function(state_name){
+    return _m.mstate[state_name]();
 };
 
-//history api
-_m.setHistory = function(url, data){
-    //store the data you want for this state
-    history.pushState(data, null, url);
-};
-
-_m.handleHistory = function(func){
-    //set the state handler function
-    window.addEventListener('popstate', function(e) {
-        func(e.state);
-    });
-};
-
-
-//location api
-_m.getLocation = function(){
-    //uses thirdparty ajax request
-    //http://freegeoip.net/json/
-    //{"ip":"2601:9:4400:cc32:a987:1b3c:64fd:5fd","country_code":"US","country_name":"United States",
-    //"region_code":"CA","region_name":"California","city":"Oakland","zip_code":"94611",
-    //"time_zone":"America/Los_Angeles","latitude":37.831,"longitude":-122.22,"metro_code":807}
-    return _s.get('http://freegeoip.net/json/',{});
-};
 
 //run start function
 _m.run = function(custom_func){
     _h.bind('load',window,custom_func);
 };
-var sb_cpy = function(u,h,m,s){
+var sb_cpy = function(_u,_h,_m,_s){
     var bundle = {};
-    bundle.u = u;
-    bundle.h = h;
-    bundle.m = m;
-    bundle.s = s;    
+    bundle.u = _u;
+    bundle.h = _h;
+    bundle.m = _m;
+    bundle.s = _s;    
     return bundle;
 }
 
