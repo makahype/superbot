@@ -6,36 +6,10 @@ A frontend framework to catalyze maintenance. It does this by:
 
 
 # file organization
-
-
-1) Handlers: These functions are what are called when an event happens. A click 
-event, or a change event or any of the dom events you wish to observe should all
-have their functions listeners stored together. The "_h" object supplies the 
-methods that allow the programmer to bind functions to events. 
-
-2) Business: These functions are your unique frontend business logic. This will
-contain any unique data formatting for your logic and/or special animations. 
-There is no "_b" object in the framework because this area of application functions
-is completely unique to the application. The framework has no idea about what helper
-functions might be needed for your set of business logic. Further more the functions
-that make up your business logic should be tailored to your use case to make sure
-they are optimal. 
-
-3) Senders: Senders are functions that send data to a location. The "_s" object holds
-functions to send data to the server via an ajax function or to the dom to render
-markup. These functions typically return a defered object in case the result needs
-to cascade (be sent to ) other functions. There is a special object in the framework, 
-the "frmUT" object has methods for sending and retrieving data from forms.
-
-4) Managers: The "_m" object contains functions that generally helpful to any application.
-Functions to manage url history, a function to manage the dom load event, and a
-function for name spacing if there is a particular set of data you wish to have global
-access to but dont want to pollute the global namespace. These functions may be of little
-use to you but the concept of the manager is important. A manager is a function to handle 
-the state of the application after all senders have completed. In the manager you bind events
-to a dom that is in its final state and set any global values that might be important for
-the next event to check after it fires. 
-
+* handler.js : event listening wrappers
+* sender.js : templating, http request wrappers
+* utility.js : defer function, general dom wrappers
+* glbobj.js : global access object and meta info
 
 
 
@@ -45,36 +19,22 @@ the next event to check after it fires.
 By using this library to organize your code in synchronous paths you get added
 features from your code:
 
-a) By using the sender functions and the defered function you can ensure the call sequence
- of all the functions that should be involved when an event fires. 
+a) ability to control flow and creation of state
 
-b) Defining a set of managers and handlers gives you a simple representation of the actions you 
-raise to the user and the how many different states you have in your application. You might
-have multiple events that will converge to a single state. Or you may have multiple 
-managers that are called depending on some external state value.
+b) organize code by what area its responsible for making it 
+easier to maintain
 
-c) You will be able to easily keep track of your application state and ensure that your
- application data will always be logical and predictable. Bugs  can easitly be discovered
- and contained to one of these groups. In most cases your bug should be in the Business Logic
- group because the rest of the HBSM framework should make the rest of your applicaiton
- code automatic.
-
-d) Using this strategy should give you a finite set of deterministic function sequences from
-event firing and handler management to data or html sending and state management. This finite
-set makes it easier to communicate where bugs occur or how  what new sender and manager
- functions you might need in order to  when implementing a new handler and frontend business
-logic.
+c) you code becomes deterministic, fully testable
 
 
 
 
 
-Diagram Explanation:
-=======================
 
-In the root of this repository here is an image,  sborganization.png. It give a visual representation
-of what the implementation scheme should be when using this farmework. Here is a little 
-further explination of the diagram:.
+#Diagram Explanation
+
+sborganization.png
+
 
 1) Start state: These are the initial event binding and url (possible hash) processes
 you to when the dom loads. This is where you use the _m.run function and
@@ -108,12 +68,33 @@ all events fire at a valid moment or state of the application.
 
 
 
-API:
-========================
-HBSM is make up of 4 global objects. Each object raises a series of methods that
-are helpful to the task that the object governs. More detail about these 
-different "kinds of tasks"  will be given in the documentation on implementation
-strategy. This section only describes what the objects are and what the methods do will.
+
+
+#API
+
+Superbot has 4 objects tied to the "sb" global object.
+
+
+sb.h : handler functions, event helpers
+
+* sb.h.bind(event, element, handler): bind a function to run when a particular event
+is fired on a particular element
+
+* sb.h.unbind(event, element, handler): remove a function from being run when a 
+particular event is fired on a particular element
+
+
+
+sb.s : sender functions
+sb.u : utility functions
+sb.m : manager functions
+
+
+
+
+
+
+
 
 
 
