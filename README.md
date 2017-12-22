@@ -78,7 +78,7 @@ correct value when the template is rendered ("%t" by default)
 
 
 
-sb.u : utility functions
+#### sb.u : utility functions
 
 * sb.u.defer(start_func) : create a defered object from a given starting function.
 This method will allow you to chain  function calls into a sequence. The return 
@@ -118,7 +118,7 @@ so that a defered object can continue the sequence of functions
 
 
 
-sb.m : manager functions
+#### sb.m : manager functions
 
 * sb.m.setManager(name, function) : store a function to handle a certain state
 
@@ -139,8 +139,8 @@ sborganization.png
 
 
 1) Start state: These are the initial event binding and url (possible hash) processes
-you to when the dom loads. This is where you use the _m.run function and
-_h.bind fuction to setup the initial state of your dom. You will
+you to when the dom loads. This is where you use the sb.m.run function and
+sb.h.bind fuction to setup the initial state of your dom. You will
 probably also want to compile any templates you plan to use at this time.
 
 2) Process Event: When a event is fired the supplied listener will be called
@@ -153,7 +153,7 @@ use the sb.s.ajax or sb.s.post functions which will return a defered object so
 you can bind other senders to the results.
 
 4) Communicate with DOM: After all data has been gathered for an event and the server
-responses have been formatted (and saved if neededd) you will finally send the
+responses have been formatted (and saved if needed) you will finally send the
 data to the dom in the form of html. Here you will use the sb.s template functions 
 which should make data to markup management easy and reduce browser repaints. 
 
