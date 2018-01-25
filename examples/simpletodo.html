@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>simple todo example</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="examples.css" rel="stylesheet"/>
+        
+        <script src="sb_full.js"></script>
+        <script>
+
+            var itemList = [];
+    
+            var addItem = function(){
+                
+                //get input value
+                var itemname = sb.u.eleId("item_nm");
+                itemname = itemname.value;
+                
+                //push item in model
+                itemList.push(itemname);
+                
+                //display list
+                showList();
+            }
+
+            var  showList = function(){
+                
+                //convert model to template list
+                temdata = itemList.map(function(item, index){
+                    return sb.u.convertObjToRow({name: item, id: index});
+
+                });
+                
+                //render all items in element
+                var ele = sb.u.eleId('todo_list');
+                sb.s.renderLoop('list_item', temdata, ele);
+                
+                //bind events
+                var len = itemList.length-1;
+                while(len >= 0){
+                    var binditem = sb.u.eleId('del_'+len);
+                    sb.h.bind('click',binditem, deleteItem);
+                    len--;
+                }
+            }
+
+
+            var deleteItem = function(ele){
+                
+                //get item indx that is clicked
+                var id = sb.u.getDomAttr(ele.target, 'id');
+                id = id.replace('del_', '');
+                                
+                //remove the index from the model
+                itemList = itemList.filter(function(item,index){
+                    return index != id;
+                });
+                
+                //display the list
+                showList();
+            }
+            
+            
+            sb.m.run(function(){
+                console.log('here');
+                sb.s.compileTemplate('list_item_temp', 'list_item');
+                
+                var ele = sb.u.eleId('add_btn');
+                sb.h.bind('click', ele, addItem);
+                
+                
+            });
+            
+        </script>
+    </head>
+    <body>
+
+        <div class="form">
+            <label>New Item</label>
+            <input id="item_nm" type="text"/>
+            <button id="add_btn">add</button>
+        </div>
+        <ul id="todo_list" class="todo-list">
+        </ul>        
+        
+        
+        <!-- the template markup -->
+        <div style="display: none;">
+            
+            <div id="list_item_temp">
+                <li>
+                    %tname%t
+                    <button id="del_%tid%t">x</button>
+                </li>
+            </div>
+            
+        </div>
+        
+    </body>
+</html>
