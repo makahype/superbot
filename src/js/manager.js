@@ -20,3 +20,16 @@ _m.manageState = function(state_name){
 _m.run = function(custom_func){
     _h.bind('load',window,custom_func);
 };
+
+_m.routes = {};
+_m.route = function(url, setup, id){   
+    var state = {};
+    state.id = id;
+    state.url = url;
+    
+    _m.routes[id] = setup;
+    window.history.pushState(state, id, url);
+}
+window.onpopstate = function(event){    
+    _m.routes[event.state.id](event.state);
+}

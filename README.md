@@ -1,11 +1,8 @@
 # Superbot
-A frontend framework to catalyze maintenance. It does this by:
-* standardizing process
-* simplifying implementation with a small set of tools
+A frontend framework to catalyze maintenance. 
 
 
-
-# File organization
+# Source Files
 * handler.js : event listening wrappers
 * sender.js : templating, http request wrappers
 * utility.js : defer function, general dom wrappers
@@ -13,20 +10,23 @@ A frontend framework to catalyze maintenance. It does this by:
 
 
 
-
-
-
+# Examples
+* ex1 : a simple diagnostic page to check individual functions
+* ex2 : an example of a single load script and template parsing
+* ex3 : a small dashboard example displaying multiple screens and 
+organizing code across different features. In this example youll notice the
+model data seperated from the functions which are broken into different screens.
+I could have furthers broken these screens into their , 
+manager/handler/and sender function groups but this would be overkill with such a 
+small example
 
 
 
 # API
-
 Superbot has 4 objects tied to the "sb" global object.
 
 
-
 ##### sb.h : handler functions, event helpers
-
 * sb.h.bind(event, element, handler): bind a function to run when a particular event
 is fired on a particular element
 
@@ -36,7 +36,6 @@ particular event is fired on a particular element
 
 
 #### sb.s : sender functions
-
 * sb.s.get(url, data) : send a get request to a url appending the supplied data
 (returns utility deferd object)
 
@@ -79,7 +78,6 @@ correct value when the template is rendered ("%t" by default)
 
 
 #### sb.u : utility functions
-
 * sb.u.defer(start_func) : create a defered object from a given starting function.
 This method will allow you to chain  function calls into a sequence. The return 
 value from this function is an object that has a method "next" which also takes in
@@ -119,7 +117,6 @@ so that a defered object can continue the sequence of functions
 
 
 #### sb.m : manager functions
-
 * sb.m.setManager(name, function) : store a function to handle a certain state
 
 * sb.m.manageState(name) : call manager function for a given state
@@ -129,14 +126,8 @@ so that a defered object can continue the sequence of functions
 
 
 
-
-
-
-
 # Process organization and Diagram Explanation
-
 sborganization.png
-
 
 1) Start state: These are the initial event binding and url (possible hash) processes
 you to when the dom loads. This is where you use the sb.m.run function and
@@ -165,16 +156,13 @@ all events fire at a valid moment or state of the application.
 
 
 
-
 # Benefits
-
-
 By using this library to organize your code in synchronous paths you get added
 features from your code:
 
 a) ability to control flow and creation of state
 
-b) organize code by what area its responsible for making it 
+b) organize code by what area its responsible (event handles,  ajax and template senders , and state managers) for making it 
 easier to maintain
 
 c) your code becomes deterministic, fully testable

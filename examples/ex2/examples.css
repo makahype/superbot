@@ -1,0 +1,46 @@
+.header{
+    width: 100%;
+    padding: 20px;
+    background-color: #c59983;
+}
+
+.addp-content{
+    width: 100%;
+    font-size: 25px;
+    padding: 20px;
+}
+
+.tabs{
+    width: 100%;
+    padding: 20px;
+    font-size: 20px;    
+}
+
+.tabs a{
+    text-decoration: none;
+    padding: 5px;
+    color: #FFF;
+    background-color: #888;
+}
+
+.screen-content{
+    width: 100%;
+    padding: 20px;
+    font-size: 20px;    
+}
+
+
+.screen-content h2{}
+
+.screen-content .list-wrp{}
+
+.screen-content .list-head{
+    
+}
+
+.screen-content ul{}
+
+.screen-content .item{
+    display: inline-block;
+    width: 300px;
+}

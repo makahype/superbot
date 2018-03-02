@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>simple todo example</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="examples.css" rel="stylesheet"/>
+        
+        <script src="sb_full.js"></script>
+        <script src="model.js"></script>        
+        <script src="screen_1.js"></script>
+        <script src="screen_2.js"></script>     
+        <script>
+           
+            
+            sb.m.run(function(){
+
+                var tab = sb.u.eleId('list_tab');
+                sb.h.bind('click', tab, function(e){
+                    e.preventDefault();
+                    screenOne.setup();
+                    return false;
+                });
+
+                tab = sb.u.eleId('bill_tab');
+                sb.h.bind('click', tab, function(e){
+                    e.preventDefault();                    
+                    screenTwo.setup();
+                    return false;
+                });
+
+                //start application
+                screenOne.setup();                
+            });
+            
+        </script>
+    </head>
+    <body>
+        
+        <section class="header">
+            <h1>Simple Dashboard</h1>
+        </section>
+        <section class="app-content">
+            <div class="tabs">
+                <a href="sc1" id="list_tab">List</a>
+                <a href="sc2" id="bill_tab">Billing</a>
+            </div>
+            
+            <div id="screen_content" class="screen-content">
+                
+            </div>
+        
+        
+        </section>        
+        <section class="footer">
+            
+        </section>                
+        
+                
+        <!-- the template markup -->
+        <div style="display: none;">
+            
+            <div id="sc1_layout_temp">
+                <h2>
+                    Player List
+                </h2>
+                <div class="list-wrp">
+                    <div class="list-head">
+                        <div class="item">Name</div>
+                        <div class="item">age</div>
+                        <div class="item">position</div>                        
+                    </div>
+                    <ul id="player_list">
+
+                    </ul>                    
+                </div>                
+                
+            </div>
+        
+            <div id="sc1_list_temp">
+                <li>
+                    <div class="item">
+                        %tname%t
+                    </div>
+                    <div class="item">
+                        %tage%t
+                    </div>
+                    <div class="item">
+                        %tposition%t
+                    </div>                    
+                </li>
+            </div>        
+        
+            <div id="sc2_layout_temp">
+
+                <div>Player Count</div>
+                <div>%tplayer_count%t</div>
+                
+                <div>Avg. Cost</div>
+                <input type="text" id="cost_val"  value="%tcost_per%t"/>
+                
+                <div>Overhead</div>
+                <input type="text" id="overhead_val" value="%toverhead%t"/>
+
+                <button id="calc_btn">calculate</button>
+                
+                <div>total</div>
+                <div id="total_val">%ttotal%t</div>
+                
+            </div>        
+                  
+            
+        </div>
+        
+    </body>
+</html>
