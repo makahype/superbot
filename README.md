@@ -6,6 +6,7 @@ A frontend framework to catalyze maintenance.
 * handler.js : event listening wrappers
 * sender.js : templating, http request wrappers
 * utility.js : defer function, general dom wrappers
+* manager.js : handle page loading and provide namespace to load different states
 * glbobj.js : global access object and meta info
 
 
