@@ -1,1 +1,0 @@
-_m={};_m.mstate={};_m.setManager=function(b,a){_m.mstate[b]=a};_m.manageState=function(a){return _m.mstate[a]()};_m.run=function(a){_h.bind("load",window,a)};_m.routes={};_m.route=function(b,a,d){var c={};c.id=d;c.url=b;_m.routes[d]=a;window.history.pushState(c,d,b)};window.onpopstate=function(a){_m.routes[a.state.id](a.state)};

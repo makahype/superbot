@@ -1,1 +1,0 @@
-var sb_cpy=function(c,e,b,d){var a={};a.u=c;a.h=e;a.m=b;a.s=d;return a};var sb={};sb=sb_cpy(_u,_h,_m,_s);sb.version=1;
