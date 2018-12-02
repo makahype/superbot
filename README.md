@@ -168,3 +168,8 @@ easier to maintain
 
 c) your code becomes deterministic, fully testable
 
+
+## TODOS
+* create api page/docs
+* add to examples
+* investigate missing functions
