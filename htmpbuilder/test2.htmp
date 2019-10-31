@@ -1,0 +1,6 @@
+<div>
+	this is an html template
+	' single quote
+	" double quote
+	{*# } template block chars
+</div>
