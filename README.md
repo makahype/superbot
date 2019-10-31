@@ -12,14 +12,11 @@ A frontend framework to catalyze maintenance.
 
 
 # Examples
-* ex1 : a simple diagnostic page to check individual functions
-* ex2 : an example of a single load script and template parsing
-* ex3 : a small dashboard example displaying multiple screens and 
-organizing code across different features. In this example youll notice the
-model data seperated from the functions which are broken into different screens.
-I could have furthers broken these screens into their , 
-manager/handler/and sender function groups but this would be overkill with such a 
-small example
+* test : a simple diagnostic page to check individual functions
+* ex1 : an example of a single load script and template parsing
+* ex2 : a small dashboard example displaying multiple screens and 
+organizing code across different features. In this example you'll notice the
+model data separated from the functions which are broken into different screens.
 
 
 
@@ -172,4 +169,3 @@ c) your code becomes deterministic, fully testable
 ## TODOS
 * create api page/docs
 * add to examples
-* investigate missing functions

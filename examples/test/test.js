@@ -14,6 +14,7 @@ var change_test = function(){
 //template parsing
 var parse_template = function(){
     
+    //templates loaded from dom
     var data_ele = sb.u.eleId('data_ele');    
     var data = {};    
     data.test = data_ele.value;
@@ -22,10 +23,13 @@ var parse_template = function(){
     
     var data_res = sb.u.eleId('temp_res');
     data_res.innerHTML = html;
+    
+    //use of precompiled templates
+    var html_comp = sb.s.parseTemplate('templatetest_compile',data);   
+    var data_res_comp = sb.u.eleId('temp_compile');
+    data_res_comp.innerHTML = html_comp;    
+    
 }
-
-
-
 
 
 
@@ -64,6 +68,9 @@ sb.m.run(function(){
     sb.s.compileTemplate("template_test", 'templatetest');
     ele = sb.u.eleId('tmp_test_btn');
     sb.h.bind('click', ele, parse_template);
+    
+    //load compiled template
+    sb.s.loadTemplate('templatetest_compile',htmps.test);
 
 
     

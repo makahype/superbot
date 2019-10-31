@@ -358,6 +358,11 @@ _s.ajax = function(method, url, data){
 //pull template
 _s.templateStorage = {};
 
+//simple interface to storage model for use in compiled templates
+_s.loadTemplate = function(name, html){
+    _s.templateStorage[name] = html;
+}
+
 //store the template for calling later
 _s.compileTemplate = function(ele,save){
     
@@ -367,7 +372,7 @@ _s.compileTemplate = function(ele,save){
     }
     
     var temp = ele.innerHTML;
-    _s.templateStorage[save] = temp;
+    _s.loadTemplate(save,temp);
 
     //delete markup from dom so there are 
     //no binding colisions
