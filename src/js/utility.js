@@ -205,3 +205,60 @@ _u.convertMarkupToNode = function(html){
     
     return frag;
 };
+
+
+/*form library*/
+var _frm = {};
+
+//validation options constants
+_frm.INT = 'int';
+_frm.STR = 'str';
+_frm.PHN = 'phone';
+_frm.EMAIL = 'email';
+_frm.NUM = 'number';
+
+
+//validator functions and register object
+_frm.VALFNC = {};
+_frm.VALFNC[_frm.INT] = function(value){
+    var val = parseInt(value) + '';
+    value = value + '';
+    return (value.length === val.length);
+}
+
+_frm.VALFNC[_frm.NUM] = function(value){
+    var val = parseFloat(value) + '';
+    value = value + '';
+    return (value.length === val.length);
+}
+
+_frm.VALFNC[_frm.PHN] = function(value){
+    val = value+'';  
+    return (val.length >= 10 && val.matches("[0-9]+"));
+}
+
+_frm.VALFNC[_frm.EMAIL] = function(value){
+    return (value.indexOf('@') !== -1) && (value.indexOf('.') !== -1);
+}
+
+_frm.VALFNC[_frm.STR] = function(value){
+    return true;    
+}
+
+
+_frm.validateInpt = function(value, type){      
+    return _frm.VALFNC[type](value);
+};
+
+
+_frm.changeSelect = function(sel, val){
+    var opts = sel.options;
+    var opt = {};
+    for(var i = 0; i < opts.length; i++) {
+        opt = opts[i];
+        if(opt.value == val) {
+            sel.selectedIndex = i;
+            break;
+        }
+    }
+};

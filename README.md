@@ -21,12 +21,15 @@ model data separated from the functions which are broken into different screens.
 
 
 # API
-Superbot has 4 objects tied to the "sb" global object.
+Superbot has 5 objects tied to the "sb" global object.
 
 
-##### sb.h : handler functions, event helpers
-* sb.h.bind(event, element, handler): bind a function to run when a particular event
-is fired on a particular element
+
+|   signature   |   return type     |  description     |
+|   -----       |   -----           |   -----          |
+| sb.h :        |                   |   handler functions, event helpers|
+| sb.h.bind(event, element, handler):|   void       |
+bind a function to run when a particular event is fired on a particular element|
 
 * sb.h.unbind(event, element, handler): remove a function from being run when a 
 particular event is fired on a particular element
@@ -68,6 +71,16 @@ this function will ensure that they are run within the same animation
 frame to ensure that browser repainting is kept to a minimum. This function
 will return a defered object allow the user to call any other functions after 
 all dom manipulations are complete. (uses requestAnimationFrame)
+
+
+* sb.loadTemplate(name, html): load a string as a template. This is to be used with precompiled templates to remove the need
+for adding template markup to the page.
+
+* sb.displayTemplate(name, data, ele_id): function is a common use that encapsulates rendering a template into an element
+give a specific set of data and the elements id
+
+* sb.displayLoop(name, data_arr, ele_id): function is a common use that encapsulates rendering a template as a list item
+into an element give a specific array of data items and the elements id
 
 * sb.s.TDELIM [constant]: the delimeter to use in templates to mark a variable replacement.
 Surround a variable name with these delimeters and it will be replaced with the
