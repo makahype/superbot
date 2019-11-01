@@ -109,5 +109,5 @@ c) your code becomes deterministic, fully testable
 
 
 ## TODOS
-* create api page/docs
 * add to examples
+* ensure scope is not overwritten on subobjects
