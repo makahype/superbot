@@ -205,6 +205,63 @@ _u.convertMarkupToNode = function(html){
     
     return frag;
 };
+
+
+/*form library*/
+var _frm = {};
+
+//validation options constants
+_frm.INT = 'int';
+_frm.STR = 'str';
+_frm.PHN = 'phone';
+_frm.EMAIL = 'email';
+_frm.NUM = 'number';
+
+
+//validator functions and register object
+_frm.VALFNC = {};
+_frm.VALFNC[_frm.INT] = function(value){
+    var val = parseInt(value) + '';
+    value = value + '';
+    return (value.length === val.length);
+}
+
+_frm.VALFNC[_frm.NUM] = function(value){
+    var val = parseFloat(value) + '';
+    value = value + '';
+    return (value.length === val.length);
+}
+
+_frm.VALFNC[_frm.PHN] = function(value){
+    val = value+'';  
+    return (val.length >= 10 && val.matches("[0-9]+"));
+}
+
+_frm.VALFNC[_frm.EMAIL] = function(value){
+    return (value.indexOf('@') !== -1) && (value.indexOf('.') !== -1);
+}
+
+_frm.VALFNC[_frm.STR] = function(value){
+    return true;    
+}
+
+
+_frm.validateInpt = function(value, type){      
+    return _frm.VALFNC[type](value);
+};
+
+
+_frm.changeSelect = function(sel, val){
+    var opts = sel.options;
+    var opt = {};
+    for(var i = 0; i < opts.length; i++) {
+        opt = opts[i];
+        if(opt.value == val) {
+            sel.selectedIndex = i;
+            break;
+        }
+    }
+};
 /* boiler plate for browser polyfill*/
 
 (function() {
@@ -398,10 +455,11 @@ _s.parseTemplate = function(name,data){
     return html;
 };
 
+
 //render template
 //data is an array of objects with the structure
 // {name: string, value: string/number}
-_s.renderTemplate = function(name, data,ele){
+_s.renderTemplate = function(name, data, ele){
     var html = _s.parseTemplate(name,data);
     
     ele.innerHTML = html;
@@ -420,7 +478,7 @@ _s.appendTemplate = function(name, data, ele){
 //data is an array of arrays
 //each array contains an array of variables
 //with the structure {name: string, value: string/number}
-_s.renderLoop = function(name, data,ele){
+_s.renderLoop = function(name, data, ele){
     var html = '';
     var i = 0;
     var item = '';
@@ -473,143 +531,31 @@ _s.batchRender = function(render_funcs){
 
 
 
-/*form library*/
-//var frmUT = {};
-//frmUT.ERRCLS = 'frmt-error';
-//
-////validation options constants
-//frmUT.INT = 'int';
-//frmUT.STR = 'str';
-//frmUT.PHN = 'phone';
-//frmUT.EMAIL = 'email';
-//frmUT.NUM = 'number';
-//
-//
-////validator functions and register object
-//frmUT.VALFNC = {};
-//frmUT.VALFNC[frmUT.INT] = function(value){
-//    var val = parseInt(value) + '';
-//    value = value + '';
-//    return (value.length === val.length);
-//}
-//
-//frmUT.VALFNC[frmUT.NUM] = function(value){
-//    var val = parseFloat(value) + '';
-//    value = value + '';
-//    return (value.length === val.length);
-//}
-//
-//frmUT.VALFNC[frmUT.PHN] = function(value){
-//    val = value+'';  
-//    return (val.length >= 10 && val.matches("[0-9]+"));
-//}
-//
-//frmUT.VALFNC[frmUT.EMAIL] = function(value){
-//    return (value.indexOf('@') !== -1) && (value.indexOf('.') !== -1);
-//}
-//
-//frmUT.VALFNC[frmUT.STR] = function(value){
-//    return true;    
-//}
-//
-////validates form and returns 
-////an array of items
-////comes in the format
-////res_lbl, inptid, type
-//frmUT.validateFrm = function(items){
-//    var res = true;
-//    var ele = false;
-//    for(var i = 0; i < items.length; i++){
-//        ele = _u.eleId(items[i].inptid);
-//        ele = ele.value;
-//        if(frmUT.validateInpt(ele, items[i].type)){
-//            frmUT.setErr(items[i]);
-//        }else{
-//            //if any error occurs return as false;
-//            res = false;
-//        }
-//    }
-//    return res;
-//};
-//
-//
-//frmUT.registerValidator = function(name, func){
-//    frmUT.VALFNC[name] = func;
-//}
-//
-//frmUT.validateInpt = function(value, type){      
-//    return frmUT.VALFNC[type](value);
-//};
-//
-//frmUT.clearFrm = function(items){
-//
-//    var ele = false;
-//    for(var i = 0; i < items.length; i++){
-//        
-//        //if an options form then perform select changing
-//        ele = _u.eleId(items[i].inptid);
-//        if(ele.options){
-//            frmUT.changeSelect(ele,  '');
-//        }else{
-//            ele.value = '';   
-//        }
-//    }    
-//};
-//
-//
-//frmUT.setErr = function(item){
-//    var ele = _u.eleId(item.inptid);
-//    _u.removeClass(ele,frmUT.ERRCLS);
-//    _u.addClass(ele,frmUT.ERRCLS);
-//    
-//};
-//
-//frmUT.serializeFrm = function(items){
-//    var res = {};
-//    var ele = false;
-//    for(var i = 0; i < items.length; i++){
-//        ele = _u.eleId(items[i].inptid);
-//        ele = ele.value;
-//        
-//        //set result data object
-//        res[items[i].res_lbl] = ele;
-//    }
-//    return res;    
-//};
-//
-//
-////only works for text boxes  , should
-////work for checkboxes,and select boxes
-//frmUT.populateFrm = function(data, items){
-//
-//    var ele = false;
-//    for(var i = 0; i < items.length; i++){
-//        
-//        //if an options form then perform select changing
-//        ele = _u.eleId(items[i].inptid);
-//        if(ele.options){
-//            frmUT.changeSelect(ele,  data[items[i].res_lbl]);
-//        }else{
-//            ele.value = data[items[i].res_lbl];            
-//        }
-//    }
-//
-//};
-//
-//
-//
-//frmUT.changeSelect = function(sel, val){
-//    var opts = sel.options;
-//    var opt = {};
-//    for(var i = 0; i < opts.length; i++) {
-//        opt = opts[i];
-//        if(opt.value == val) {
-//            sel.selectedIndex = i;
-//            break;
-//        }
-//    }
-//};
-//manager namespace
+//encapsulate parts for common usage of a single template
+_s.displayTemp = function(name, data, id){
+    
+    //format the data
+    var data_fmt = _u.convertObjToRow(data);
+    var ele = _u.eleId(id);
+    _s.renderTemplate(name,data_fmt,ele);
+    
+}
+
+
+//encapsulate parts for common usage of a list template
+_s.displayLoop = function(name, data_arr, id){
+    
+    //format the data
+    var data_fmt = [];
+    
+    data_arr.forEach(function(item){
+        data_fmt.push(_u.convertToRow(item));
+    });
+    
+    var ele = _u.eleId(id);
+    _s.renderLoop(name,data_fmt,ele);
+    
+}//manager namespace
 _m = {};
 
 //define state holder
@@ -644,15 +590,16 @@ _m.route = function(url, setup, id){
 window.onpopstate = function(event){    
     _m.routes[event.state.id](event.state);
 }
-var sb_cpy = function(_u,_h,_m,_s){
+var sb_cpy = function(_u,_h,_m,_s,_frm){
     var bundle = {};
     bundle.u = _u;
     bundle.h = _h;
     bundle.m = _m;
-    bundle.s = _s;    
+    bundle.s = _s;
+    bundle.frm = _frm;
     return bundle;
 }
 
 var sb = {};
-sb = sb_cpy(_u,_h,_m,_s);
-sb.version = 1;
+sb = sb_cpy(_u,_h,_m,_s,_frm);
+sb.version = 2;

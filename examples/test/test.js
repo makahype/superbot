@@ -18,16 +18,11 @@ var parse_template = function(){
     var data_ele = sb.u.eleId('data_ele');    
     var data = {};    
     data.test = data_ele.value;
-    data = sb.u.convertObjToRow(data);
-    var html = sb.s.parseTemplate('templatetest',data);
     
-    var data_res = sb.u.eleId('temp_res');
-    data_res.innerHTML = html;
+    sb.s.displayTemp('templatetest', data, 'temp_res');
     
     //use of precompiled templates
-    var html_comp = sb.s.parseTemplate('templatetest_compile',data);   
-    var data_res_comp = sb.u.eleId('temp_compile');
-    data_res_comp.innerHTML = html_comp;    
+    sb.s.displayTemp('templatetest_compile', data, 'temp_compile');
     
 }
 

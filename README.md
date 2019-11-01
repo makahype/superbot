@@ -61,8 +61,9 @@ Superbot has 5 objects tied to the "sb" global object.
 |sb.m.setManager(name, function) :|     void            | store a function to handle a certain state|
 |sb.m.manageState(name) :|          void                | call manager function for a given state|
 |sb.m.run(custom_func) :|        void                   | supply a function to run on page load (the first state)|
-
-
+|sb.frm : |               |form utility functions|
+|sb.frm.validateInput(value, type) :|     boolean      | validate if a value if of a certain type |
+|sb.frm.changeSel(element, value) :|     void            |  change a select box current value |
 
 
 # Process organization and Diagram Explanation
