@@ -6,6 +6,10 @@ var _u = {};
 _u.DPT = 300;
 
 
+_u.setDpt = function(dpt){
+    this.DPT = dpt;
+}
+
 /* turn a function into 
  * a state machine that can have its result asynchronloysly handled
  * (A Defered Monad)
@@ -53,12 +57,12 @@ _u.defer = function(start_func){
             
             //if there is a next queue_item then call it
             if(queue.length > queue_pos){
-                setTimeout(state_res.call, _u.DPT);            
+                setTimeout(state_res.call, this.DPT);            
             }else{
                 done = true;
             }
         }else{
-            setTimeout(current, _u.DPT);              
+            setTimeout(current, this.DPT);              
         }
     };
 
@@ -72,7 +76,7 @@ _u.defer = function(start_func){
         if(done){
             done = false;
             queue.push(new_func);
-            setTimeout(state_res.call, _u.DPT);            
+            setTimeout(state_res.call, this.DPT);            
         }else{
             queue.push(new_func);           
         }
@@ -104,7 +108,7 @@ _u.defer = function(start_func){
     };
     
     //start process
-    setTimeout(state_res.call, _u.DPT);
+    setTimeout(state_res.call, this.DPT);
 
     //return the chainable state
     return state_res;    
@@ -212,7 +216,6 @@ var _frm = {};
 
 //validation options constants
 _frm.INT = 'int';
-_frm.STR = 'str';
 _frm.PHN = 'phone';
 _frm.EMAIL = 'email';
 _frm.NUM = 'number';
@@ -241,13 +244,9 @@ _frm.VALFNC[_frm.EMAIL] = function(value){
     return (value.indexOf('@') !== -1) && (value.indexOf('.') !== -1);
 }
 
-_frm.VALFNC[_frm.STR] = function(value){
-    return true;    
-}
-
 
 _frm.validateInpt = function(value, type){      
-    return _frm.VALFNC[type](value);
+    return this.VALFNC[type](value);
 };
 
 

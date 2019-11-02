@@ -6,6 +6,10 @@ var _u = {};
 _u.DPT = 300;
 
 
+_u.setDpt = function(dpt){
+    this.DPT = dpt;
+}
+
 /* turn a function into 
  * a state machine that can have its result asynchronloysly handled
  * (A Defered Monad)
@@ -53,12 +57,12 @@ _u.defer = function(start_func){
             
             //if there is a next queue_item then call it
             if(queue.length > queue_pos){
-                setTimeout(state_res.call, _u.DPT);            
+                setTimeout(state_res.call, this.DPT);            
             }else{
                 done = true;
             }
         }else{
-            setTimeout(current, _u.DPT);              
+            setTimeout(current, this.DPT);              
         }
     };
 
@@ -72,7 +76,7 @@ _u.defer = function(start_func){
         if(done){
             done = false;
             queue.push(new_func);
-            setTimeout(state_res.call, _u.DPT);            
+            setTimeout(state_res.call, this.DPT);            
         }else{
             queue.push(new_func);           
         }
@@ -104,7 +108,7 @@ _u.defer = function(start_func){
     };
     
     //start process
-    setTimeout(state_res.call, _u.DPT);
+    setTimeout(state_res.call, this.DPT);
 
     //return the chainable state
     return state_res;    
@@ -212,7 +216,6 @@ var _frm = {};
 
 //validation options constants
 _frm.INT = 'int';
-_frm.STR = 'str';
 _frm.PHN = 'phone';
 _frm.EMAIL = 'email';
 _frm.NUM = 'number';
@@ -241,13 +244,9 @@ _frm.VALFNC[_frm.EMAIL] = function(value){
     return (value.indexOf('@') !== -1) && (value.indexOf('.') !== -1);
 }
 
-_frm.VALFNC[_frm.STR] = function(value){
-    return true;    
-}
-
 
 _frm.validateInpt = function(value, type){      
-    return _frm.VALFNC[type](value);
+    return this.VALFNC[type](value);
 };
 
 
@@ -361,21 +360,25 @@ var _s = {};
 _s.TDELIM = "%t";
 
 
+_s.setDelim = function(delim){
+    this.TDELIM = delim;
+}
+
 //get
 _s.get = function(url, data){
-    return _s.ajax('GET',url,data);
+    return this.ajax('GET',url,data);
 };
 
 //post
 _s.post = function(url, data){
-    return _s.ajax('POST',url,data);
+    return this.ajax('POST',url,data);
 };
 
 //generic request
 _s.ajax = function(method, url, data){
     
     //turn into query string
-    data = _u.queryStr(data);
+    data = GBLSBREF.u.queryStr(data);
     
     //create deferd handler state variables
     var done = false;
@@ -399,7 +402,7 @@ _s.ajax = function(method, url, data){
     xmlhttp.send(data);
     
     //return a defered object that will return itself if ajax call is not complete
-    var defres =  _u.defer(function(){
+    var defres =  GBLSBREF.u.defer(function(){
         if(done){
             return res;
         }else{
@@ -417,7 +420,7 @@ _s.templateStorage = {};
 
 //simple interface to storage model for use in compiled templates
 _s.loadTemplate = function(name, html){
-    _s.templateStorage[name] = html;
+    this.templateStorage[name] = html;
 }
 
 //store the template for calling later
@@ -425,11 +428,11 @@ _s.compileTemplate = function(ele,save){
     
     //if an id string is given then convert to element
     if((ele+'') == ele){
-        ele = _u.eleId(ele);
+        ele = GBLSBREF.u.eleId(ele);
     }
     
     var temp = ele.innerHTML;
-    _s.loadTemplate(save,temp);
+    this.loadTemplate(save,temp);
 
     //delete markup from dom so there are 
     //no binding colisions
@@ -437,12 +440,12 @@ _s.compileTemplate = function(ele,save){
 };
 
 _s.parseTemplate = function(name,data){
-    var html = _s.templateStorage[name];
+    var html = this.templateStorage[name];
     var item = '';
     var reg_replace = {};
     
     for(var i = 0; i < data.length; i++){
-        item = _s.TDELIM+data[i].name+_s.TDELIM;
+        item = this.TDELIM+data[i].name+this.TDELIM;
         
         //escape regex strings
         item = item.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -460,7 +463,7 @@ _s.parseTemplate = function(name,data){
 //data is an array of objects with the structure
 // {name: string, value: string/number}
 _s.renderTemplate = function(name, data, ele){
-    var html = _s.parseTemplate(name,data);
+    var html = this.parseTemplate(name,data);
     
     ele.innerHTML = html;
     return ele;
@@ -469,8 +472,8 @@ _s.renderTemplate = function(name, data, ele){
 
 
 _s.appendTemplate = function(name, data, ele){
-    var html = _s.parseTemplate(name,data);
-    var frag = _u.convertMarkupToNode(html);
+    var html = this.parseTemplate(name,data);
+    var frag = GBLSBREF.u.convertMarkupToNode(html);
     ele.appendChild(frag);
 };
 
@@ -487,7 +490,7 @@ _s.renderLoop = function(name, data, ele){
     
     //loop through rows
     for(var c = 0; c < data.length; c++){
-        html = _s.parseTemplate(name,data[c]);
+        html = this.parseTemplate(name,data[c]);
         htmlres = htmlres+html;
     }
     
@@ -515,7 +518,7 @@ _s.batchRender = function(render_funcs){
 
     //return a defered function that resolves when the request
     //animation frame function resolves
-    var defunc = _u.defer(function(){
+    var defunc = GBLSBREF.u.defer(function(){
         if(done){
             return true;
         }else{
@@ -535,8 +538,8 @@ _s.batchRender = function(render_funcs){
 _s.displayTemp = function(name, data, id){
     
     //format the data
-    var data_fmt = _u.convertObjToRow(data);
-    var ele = _u.eleId(id);
+    var data_fmt = GBLSBREF.u.convertObjToRow(data);
+    var ele = GBLSBREF.u.eleId(id);
     _s.renderTemplate(name,data_fmt,ele);
     
 }
@@ -549,10 +552,10 @@ _s.displayLoop = function(name, data_arr, id){
     var data_fmt = [];
     
     data_arr.forEach(function(item){
-        data_fmt.push(_u.convertToRow(item));
+        data_fmt.push(GBLSBREF.u.convertToRow(item));
     });
     
-    var ele = _u.eleId(id);
+    var ele = GBLSBREF.u.eleId(id);
     _s.renderLoop(name,data_fmt,ele);
     
 }//manager namespace
@@ -564,18 +567,18 @@ _m.mstate = {};
 
 //state set
 _m.setManager = function(state_name, manager){
-    _m.mstate[state_name] = manager;
+    this.mstate[state_name] = manager;
 };
 
 //state manage
 _m.manageState = function(state_name){
-    return _m.mstate[state_name]();
+    return this.mstate[state_name]();
 };
 
 
 //run start function
 _m.run = function(custom_func){
-    _h.bind('load',window,custom_func);
+    GBLSBREF.h.bind('load',window,custom_func);
 };
 
 _m.routes = {};
@@ -584,11 +587,11 @@ _m.route = function(url, setup, id){
     state.id = id;
     state.url = url;
     
-    _m.routes[id] = setup;
+    this.routes[id] = setup;
     window.history.pushState(state, id, url);
 }
 window.onpopstate = function(event){    
-    _m.routes[event.state.id](event.state);
+    this.routes[event.state.id](event.state);
 }
 var sb_cpy = function(_u,_h,_m,_s,_frm){
     var bundle = {};
@@ -603,3 +606,13 @@ var sb_cpy = function(_u,_h,_m,_s,_frm){
 var sb = {};
 sb = sb_cpy(_u,_h,_m,_s,_frm);
 sb.version = 2;
+
+//to be used instead of the sub objects within 
+//each set of functions
+var GBLSBREF = sb;
+
+//function to override object that is referenced  for use of
+//sub functions if variable names are repurposed
+var setSBREF = function(new_obj){
+    GBLSBREF  = new_obj;
+}
